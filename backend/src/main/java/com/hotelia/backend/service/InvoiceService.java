@@ -8,7 +8,6 @@ import com.hotelia.backend.exception.BadRequestException;
 import com.hotelia.backend.exception.ResourceNotFoundException;
 import com.hotelia.backend.repository.InvoiceRepository;
 import com.hotelia.backend.repository.ReservationRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
@@ -16,11 +15,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final ReservationRepository reservationRepository;
+
+    public InvoiceService(InvoiceRepository invoiceRepository,
+                          ReservationRepository reservationRepository) {
+        this.invoiceRepository = invoiceRepository;
+        this.reservationRepository = reservationRepository;
+    }
 
     public List<InvoiceResponse> findAll() {
         return invoiceRepository.findAll()

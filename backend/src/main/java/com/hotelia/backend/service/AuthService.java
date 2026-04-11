@@ -6,18 +6,24 @@ import com.hotelia.backend.entity.User;
 import com.hotelia.backend.exception.BadRequestException;
 import com.hotelia.backend.repository.UserRepository;
 import com.hotelia.backend.security.JwtService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final JwtService jwtService;
+
+    public AuthService(AuthenticationManager authenticationManager,
+                       UserRepository userRepository,
+                       JwtService jwtService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.jwtService = jwtService;
+    }
 
     public AuthResponse login(LoginRequest request) {
         try {

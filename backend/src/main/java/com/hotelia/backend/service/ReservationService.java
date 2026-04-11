@@ -11,7 +11,6 @@ import com.hotelia.backend.exception.ResourceNotFoundException;
 import com.hotelia.backend.repository.ClientRepository;
 import com.hotelia.backend.repository.ReservationRepository;
 import com.hotelia.backend.repository.RoomRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
@@ -19,12 +18,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final ClientRepository clientRepository;
     private final RoomRepository roomRepository;
+
+    public ReservationService(ReservationRepository reservationRepository,
+                              ClientRepository clientRepository,
+                              RoomRepository roomRepository) {
+        this.reservationRepository = reservationRepository;
+        this.clientRepository = clientRepository;
+        this.roomRepository = roomRepository;
+    }
 
     public List<ReservationResponse> findAll() {
         return reservationRepository.findAll()

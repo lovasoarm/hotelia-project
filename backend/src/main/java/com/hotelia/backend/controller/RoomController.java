@@ -5,7 +5,6 @@ import com.hotelia.backend.dto.response.RoomResponse;
 import com.hotelia.backend.enums.RoomStatus;
 import com.hotelia.backend.service.RoomService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +14,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rooms")
-@RequiredArgsConstructor
 public class RoomController {
 
     private final RoomService roomService;
+
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     @GetMapping
     public ResponseEntity<List<RoomResponse>> findAll() {

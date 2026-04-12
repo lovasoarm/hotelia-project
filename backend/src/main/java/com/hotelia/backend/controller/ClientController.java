@@ -4,7 +4,6 @@ import com.hotelia.backend.dto.request.ClientRequest;
 import com.hotelia.backend.dto.response.ClientResponse;
 import com.hotelia.backend.service.ClientService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,10 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clients")
-@RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ClientResponse>> findAll() {
@@ -36,7 +38,7 @@ public class ClientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ClientResponse> update(@PathVariable Long id,
-                                                  @Valid @RequestBody ClientRequest request) {
+                                                 @Valid @RequestBody ClientRequest request) {
         return ResponseEntity.ok(clientService.update(id, request));
     }
 

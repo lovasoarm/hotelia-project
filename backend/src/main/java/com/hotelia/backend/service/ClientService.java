@@ -6,17 +6,19 @@ import com.hotelia.backend.entity.Client;
 import com.hotelia.backend.exception.BadRequestException;
 import com.hotelia.backend.exception.ResourceNotFoundException;
 import com.hotelia.backend.repository.ClientRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ClientService {
 
     private final ClientRepository clientRepository;
+
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     public List<ClientResponse> findAll() {
         return clientRepository.findAll()

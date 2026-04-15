@@ -274,9 +274,8 @@ En local tout marche, en Docker les ports diffèrent. Solution : Nginx configur�
 
 <div align="center">
 
-**RAMAHALY Lovasoarm**  
-M1 MIAGE · Projet Technologie Web Avancée  
-Prof : Mr. Fabrice RAZAFINDRAIBE
+**Lovasoarm AKA `Aramis`**  
+
 
 </div>
 

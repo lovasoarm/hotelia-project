@@ -1,9 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+
+const navLinks = [
+  { path: "/dashboard", label: "Dashboard" },
+  { path: "/clients", label: "Clients" },
+  { path: "/rooms", label: "Chambres" },
+  { path: "/reservations", label: "Réservations" },
+  { path: "/invoices", label: "Factures" },
+];
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const { theme, toggle } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -12,33 +23,34 @@ export default function Navbar() {
 
   return (
     <nav style={styles.nav}>
-      <div style={styles.brand}>
-        <span style={styles.logo}>H</span>
-        <span style={styles.brandName}>HOTELIA</span>
-      </div>
-
-      <div style={styles.links}>
-        <Link to="/dashboard" style={styles.link}>
-          Dashboard
-        </Link>
-        <Link to="/clients" style={styles.link}>
-          Clients
-        </Link>
-        <Link to="/rooms" style={styles.link}>
-          Chambres
-        </Link>
-        <Link to="/reservations" style={styles.link}>
-          Réservations
-        </Link>
-        <Link to="/invoices" style={styles.link}>
-          Factures
-        </Link>
+      <div style={styles.left}>
+        <div style={styles.brand}>
+          <span style={styles.brandName}>HOTELIA</span>
+        </div>
+        <div style={styles.links}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              style={{
+                ...styles.link,
+                ...(location.pathname === link.path ? styles.linkActive : {}),
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       <div style={styles.right}>
-        <span style={styles.userInfo}>
-          {user?.username} · <span style={styles.role}>{user?.role}</span>
-        </span>
+        <button onClick={toggle} style={styles.themeBtn} title="Toggle theme">
+          {theme === "dark" ? "☀" : "◐"}
+        </button>
+        <div style={styles.userChip}>
+          <span style={styles.username}>{user?.username}</span>
+          <span style={styles.roleBadge}>{user?.role}</span>
+        </div>
         <button onClick={handleLogout} style={styles.logoutBtn}>
           Déconnexion
         </button>
@@ -49,72 +61,93 @@ export default function Navbar() {
 
 const styles = {
   nav: {
-    background: "#1a1a2e",
-    color: "#fff",
+    background: "var(--surface)",
+    borderBottom: "1px solid var(--border)",
     padding: "0 32px",
-    height: "60px",
+    height: "58px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     position: "sticky",
     top: 0,
     zIndex: 100,
-    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+  },
+  left: {
+    display: "flex",
+    alignItems: "center",
+    gap: "32px",
   },
   brand: {
     display: "flex",
     alignItems: "center",
-    gap: "10px",
-  },
-  logo: {
-    background: "#e94560",
-    color: "#fff",
-    width: "32px",
-    height: "32px",
-    borderRadius: "8px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: "700",
-    fontSize: "16px",
   },
   brandName: {
+    fontFamily: "var(--font-display)",
     fontWeight: "700",
-    fontSize: "16px",
+    fontSize: "18px",
+    color: "var(--accent)",
     letterSpacing: "2px",
   },
   links: {
     display: "flex",
-    gap: "8px",
+    gap: "2px",
   },
   link: {
-    color: "rgba(255,255,255,0.75)",
-    padding: "6px 14px",
-    borderRadius: "6px",
+    color: "var(--text-muted)",
+    padding: "6px 12px",
+    borderRadius: "var(--radius-sm)",
     fontSize: "13px",
+    fontWeight: "500",
     transition: "all 0.2s",
-    textDecoration: "none",
+  },
+  linkActive: {
+    color: "var(--text)",
+    background: "var(--surface2)",
   },
   right: {
     display: "flex",
     alignItems: "center",
-    gap: "16px",
+    gap: "12px",
   },
-  userInfo: {
+  themeBtn: {
+    background: "var(--surface2)",
+    color: "var(--text)",
+    border: "1px solid var(--border)",
+    width: "32px",
+    height: "32px",
+    padding: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "14px",
+    borderRadius: "var(--radius-sm)",
+  },
+  userChip: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "5px 12px",
+    background: "var(--surface2)",
+    borderRadius: "var(--radius-sm)",
+    border: "1px solid var(--border)",
+  },
+  username: {
     fontSize: "13px",
-    color: "rgba(255,255,255,0.7)",
+    fontWeight: "500",
+    color: "var(--text)",
   },
-  role: {
-    color: "#e94560",
-    fontWeight: "600",
+  roleBadge: {
+    fontSize: "10px",
+    fontWeight: "700",
+    color: "var(--accent)",
+    textTransform: "uppercase",
+    letterSpacing: "0.5px",
   },
   logoutBtn: {
-    background: "rgba(233,69,96,0.15)",
-    color: "#e94560",
-    border: "1px solid rgba(233,69,96,0.3)",
-    padding: "6px 14px",
-    borderRadius: "6px",
+    background: "transparent",
+    color: "var(--text-muted)",
+    border: "1px solid var(--border)",
     fontSize: "13px",
-    cursor: "pointer",
+    padding: "6px 14px",
   },
 };

@@ -26,7 +26,7 @@ Migration complète d'un système Java EE legacy vers une architecture moderne :
 - **Frontend** : SPA React.js avec dark mode, animations, images réelles
 - **Infra** : Dockerisé et orchestré avec Docker Compose
 
-L'app couvre l'intégralité des opérations d'un hôtel : clients, chambres, réservations, facturation et KPIs en temps réel.
+L'app couvre l'intégralité des opérations d'un hôtel : clients, chambres, réservations, facturation et KPIs en temps réel. Pour comparer avec la version legacy (Java EE), voici l’ancienne mouture du projet :  [Hotelia-legacy](https://github.com/lovasoarm/Hotelia-legacy)
 
 ---
 

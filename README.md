@@ -279,6 +279,4 @@ En local tout marche, en Docker les ports diff√®rent. Solution : Nginx configur√
 
 </div>
 
----
-
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:c8a96e,100:1a1a1a&height=100&section=footer" />

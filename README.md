@@ -214,7 +214,7 @@ npm start
 | ---------------------------- | --------------------------------- | ---------------- |
 | `SPRING_DATASOURCE_URL`      | `jdbc:mysql://mysql:3306/hotelia` | URL MySQL        |
 | `SPRING_DATASOURCE_USERNAME` | `root`                            | User MySQL       |
-| `SPRING_DATASOURCE_PASSWORD` | `root`                            | Mot de passe     |
+| `SPRING_DATASOURCE_PASSWORD` | `root123`                         | Mot de passe     |
 | `APP_JWT_SECRET`             | `hoteliaSecretKey2024...`         | Clé JWT HMAC     |
 | `APP_JWT_EXPIRATION`         | `86400000`                        | Durée token (ms) |
 

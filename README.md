@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&pause=1000&color=C8A96E&center=true&vCenter=true&width=700&lines=HOTELIA+%F0%9F%8F%A8;Syst%C3%A8me+de+Gestion+H%C3%B4teli%C3%A8re;Spring+Boot+%2B+React.js+%2B+Docker;Java+EE+%E2%86%92+Stack+Moderne)](https://github.com/lovasoarm)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&pause=1000&color=C8A96E&center=true&vCenter=true&width=700&lines=HOTELIA;Syst%C3%A8me+de+Gestion+H%C3%B4teli%C3%A8re;Spring+Boot+%2B+React.js+%2B+Docker;Java+EE+%E2%86%92+Stack+Moderne)](https://github.com/lovasoarm)
 
 <br/>
 

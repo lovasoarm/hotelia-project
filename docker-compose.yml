@@ -7,7 +7,7 @@ services:
     container_name: hotelia-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: hotelia
     ports:
       - "3307:3306"
@@ -32,7 +32,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hotelia?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_PASSWORD: root123
       APP_JWT_SECRET: hoteliaSecretKey2024VeryLongSecretKeyForJWTSigning
       APP_JWT_EXPIRATION: 86400000
     ports:

@@ -1,0 +1,28 @@
+# Stage 1 : Build React avec Node
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+#package.json en premier pour le cache npm
+COPY frontend/package*.json ./
+RUN npm ci --silent
+
+#code source et builder
+COPY frontend/ .
+RUN npm run build
+
+
+
+
+# Stage 2 : Servir avec Nginx (ultra léger)
+FROM nginx:alpine
+
+#build React dans nginx
+COPY --from=builder /app/build /usr/share/nginx/html
+
+#nginx pour React Router (SPA)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

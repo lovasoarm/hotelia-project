@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: hotelia-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hotelia
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Backend : Spring Boot
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: hotelia-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hotelia?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      APP_JWT_SECRET: hoteliaSecretKey2024VeryLongSecretKeyForJWTSigning
+      APP_JWT_EXPIRATION: 86400000
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://localhost:8080/actuator/health || exit 1",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+  # Frontend : React
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: hotelia-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql_data:
